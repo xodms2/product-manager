@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import ListProducts from "./ListProducts";
 
 const Home = () => {
-  const [product, setProduct] = useState([]);
   const [newProduct, setNewProduct] = useState({
     title: "",
     price: "",
@@ -26,19 +26,6 @@ const Home = () => {
       })
       .catch((err) => console.log(err));
   };
-
-  useEffect(
-    () =>
-      axios
-        .get("http://localhost:8000/api/product")
-        .then((res) => {
-          setProduct(res.data.allProducts);
-        })
-        .catch((err) => console.log(err)),
-    []
-  );
-
-  console.log(product);
 
   return (
     <>
@@ -75,14 +62,7 @@ const Home = () => {
         </div>
         <button onClick={onClickCreateProduct}>Create</button>
         <hr />
-        {product.map((prod, i) => (
-          <div key={i}>
-            <div>{prod.title}</div>
-            <div>{prod.price}</div>
-            <div>{prod.description}</div>
-            <hr />
-          </div>
-        ))}
+        <ListProducts />
       </div>
     </>
   );
