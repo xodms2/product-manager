@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const ListProducts = () => {
   const [product, setProduct] = useState([]);
@@ -19,9 +21,7 @@ const ListProducts = () => {
     <div>
       {product.map((prod, i) => (
         <div key={i}>
-          <div>{prod.title}</div>
-          <div>{prod.price}</div>
-          <div>{prod.description}</div>
+          <Link to={`/api/product/${prod._id}`}>{prod.title}</Link>
           <hr />
         </div>
       ))}
