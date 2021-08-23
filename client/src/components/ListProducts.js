@@ -17,11 +17,29 @@ const ListProducts = () => {
     []
   );
 
+  const onClickDelete = (id) => {
+    axios
+      .delete(`http://localhost:8000/api/product/${id}`)
+      .then((res) => {
+        console.log(res, "deleted");
+        window.location.reload(false);
+      })
+      .catch((err) => console.log(err));
+  };
+
   return (
     <div>
       {product.map((prod, i) => (
         <div key={i}>
-          <Link to={`/api/product/${prod._id}`}>{prod.title}</Link>
+          <Link to={`/api/product/${prod._id}`}>{prod.title}</Link>|
+          <Link to={`/api/product/${prod._id}/edit`}>Edit</Link>|
+          <button
+            onClick={(e) => {
+              onClickDelete(prod._id);
+            }}
+          >
+            Delete
+          </button>
           <hr />
         </div>
       ))}
